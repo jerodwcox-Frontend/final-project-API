@@ -260,7 +260,8 @@
   </footer>
 
   <script>
-    const API_URL = "https://www.freetogame.com/api/games";
+    const API_URL = "https://corsproxy.io/?https://www.freetogame.com/api/games";
+
 
     const localGames = [
       {
@@ -351,7 +352,7 @@
     const loadLiveButton = document.getElementById("loadLiveButton");
 
     let games = [];
-    let nextId = localGames.length + 1; // monotonic counter — no duplicate risk
+    let nextId = localGames.length + 1;
 
     function normalizeGame(game) {
       return {
@@ -418,7 +419,6 @@
         const card = document.createElement("article");
         card.className = "game-card";
 
-        // Image — use the provided thumbnail URL; fall back to a styled div if it fails to load
         if (game.thumbnail) {
           const image = document.createElement("img");
           image.src = game.thumbnail;
@@ -526,8 +526,8 @@
         return list.map(function (g) { return g.title; }).join(",");
       }
 
-      console.assert(titles(getSortedGames(testGames, "az"))     === "Alpha,Beta,Charlie",   "Sort A–Z failed");
-      console.assert(titles(getSortedGames(testGames, "za"))     === "Charlie,Beta,Alpha",   "Sort Z–A failed");
+      console.assert(titles(getSortedGames(testGames, "az"))     === "Alpha,Beta,Charlie",   "Sort A-Z failed");
+      console.assert(titles(getSortedGames(testGames, "za"))     === "Charlie,Beta,Alpha",   "Sort Z-A failed");
       console.assert(titles(getSortedGames(testGames, "newest")) === "Alpha,Beta,Charlie",   "Sort newest failed");
       console.assert(titles(getSortedGames(testGames, "oldest")) === "Charlie,Beta,Alpha",   "Sort oldest failed");
       console.assert(normalizeGame({}).title                     === "Untitled Game",        "Normalize title failed");
