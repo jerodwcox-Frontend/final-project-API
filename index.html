@@ -6,11 +6,7 @@
   <title>Free Game Finder</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: Arial, Helvetica, sans-serif;
@@ -26,16 +22,8 @@
       text-align: center;
     }
 
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    header p {
-      max-width: 700px;
-      margin: 0 auto;
-      color: #d1d5db;
-    }
+    header h1 { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    header p  { max-width: 700px; margin: 0 auto; color: #d1d5db; }
 
     main {
       width: min(1150px, 92%);
@@ -48,12 +36,10 @@
       padding: 1.25rem;
       border-radius: 14px;
       margin-bottom: 1.5rem;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
     }
 
-    .project-intro h2 {
-      margin-bottom: 0.35rem;
-    }
+    .project-intro h2 { margin-bottom: 0.35rem; }
 
     .controls {
       display: flex;
@@ -63,49 +49,51 @@
       flex-wrap: wrap;
     }
 
+    .search-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+      max-width: 420px;
+    }
+
+    .search-group input {
+      flex: 1;
+      padding: 0.65rem 0.9rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: white;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .search-group input:focus { border-color: #2563eb; }
+
     .sort-group {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      flex-wrap: wrap;
     }
 
-    label {
-      font-weight: 700;
-    }
+    label  { font-weight: 700; }
 
-    select,
-    button {
+    select {
       padding: 0.65rem 0.8rem;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
       font-size: 1rem;
       background: white;
     }
 
-    select {
-      border: 1px solid #cbd5e1;
-    }
+    .status-message { margin-bottom: 1rem; font-weight: 700; }
 
-    button {
-      border: none;
-      color: white;
-      background: #2563eb;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #1d4ed8;
-    }
-
-    button:disabled {
-      background: #94a3b8;
-      cursor: not-allowed;
-    }
-
-    .status-message {
-      margin-bottom: 1rem;
-      font-weight: 700;
+    .no-results {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #6b7280;
+      font-size: 1rem;
+      grid-column: 1 / -1;
     }
 
     .game-grid {
@@ -118,7 +106,7 @@
       background: white;
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 5px 16px rgba(0,0,0,0.08);
       display: flex;
       flex-direction: column;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -126,7 +114,7 @@
 
     .game-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
     }
 
     .game-card img {
@@ -157,22 +145,9 @@
       flex-grow: 1;
     }
 
-    .game-content h2 {
-      font-size: 1.25rem;
-      margin-bottom: 0.4rem;
-      color: #111827;
-    }
-
-    .game-date {
-      color: #6b7280;
-      font-size: 0.9rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .game-description {
-      flex-grow: 1;
-      margin-bottom: 1rem;
-    }
+    .game-content h2 { font-size: 1.25rem; margin-bottom: 0.4rem; color: #111827; }
+    .game-date       { color: #6b7280; font-size: 0.9rem; margin-bottom: 0.75rem; }
+    .game-description{ flex-grow: 1; margin-bottom: 1rem; }
 
     .game-meta {
       display: flex;
@@ -201,9 +176,7 @@
       font-weight: 700;
     }
 
-    .game-link:hover {
-      background: #1d4ed8;
-    }
+    .game-link:hover { background: #1d4ed8; }
 
     footer {
       margin-top: 3rem;
@@ -214,41 +187,43 @@
     }
 
     @media (max-width: 650px) {
-      header h1 {
-        font-size: 2rem;
-      }
-
-      .controls,
-      .sort-group {
-        flex-direction: column;
-        align-items: stretch;
-      }
+      header h1 { font-size: 2rem; }
+      .controls, .sort-group { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
 <body>
+
   <header>
     <h1>Free Game Finder</h1>
-    <p>A frontend take-home project that displays free-to-play games and allows users to sort the results.</p>
+    <p>Browse free-to-play games fetched live from the FreeToGame API.</p>
   </header>
 
   <main>
     <section class="project-intro">
       <h2>Project Overview</h2>
-      <p>This app displays free-to-play games with working graphics, sorting, cards, links, and a footer. It loads local game data first so it works inside VS Code, classroom sandboxes, and interview environments. The live API button is optional.</p>
+      <p>This app fetches real free-to-play games from the FreeToGame public API and lets you search and sort them. If the API is unavailable, sample games are shown automatically.</p>
     </section>
 
-    <section class="controls" aria-label="Sorting controls">
+    <section class="controls" aria-label="Search and sort controls">
+      <div class="search-group">
+        <label for="searchInput">Search:</label>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search by title, genre, or platform..."
+          aria-label="Search games"
+        />
+      </div>
       <div class="sort-group">
-        <label for="sortSelect">Sort games:</label>
+        <label for="sortSelect">Sort by:</label>
         <select id="sortSelect">
-          <option value="az">Alphabetical A to Z</option>
-          <option value="za">Alphabetical Z to A</option>
           <option value="newest">Newest to Oldest</option>
           <option value="oldest">Oldest to Newest</option>
+          <option value="az">Alphabetical A to Z</option>
+          <option value="za">Alphabetical Z to A</option>
         </select>
       </div>
-      <button id="loadLiveButton" type="button">Load Live API Games</button>
     </section>
 
     <p id="statusMessage" class="status-message">Loading games...</p>
@@ -260,151 +235,79 @@
   </footer>
 
   <script>
-    const API_URL = "https://corsproxy.io/?https://www.freetogame.com/api/games";
+    var BASE_URL  = "https://www.freetogame.com/api/games";
 
+    // Two independent proxies — if the first is down the second takes over automatically
+    var PROXY_ONE = "https://corsproxy.io/?" + BASE_URL;
+    var PROXY_TWO = "https://api.allorigins.win/raw?url=" + encodeURIComponent(BASE_URL);
 
-    const localGames = [
-      {
-        id: 1,
-        title: "Apex Legends",
-        thumbnail: "https://www.freetogame.com/g/23/thumbnail.jpg",
-        short_description: "A fast-paced free-to-play battle royale game with team-based heroes.",
-        genre: "Shooter",
-        platform: "PC",
-        release_date: "2019-02-04",
-        game_url: "https://www.freetogame.com/open/apex-legends"
-      },
-      {
-        id: 2,
-        title: "Dauntless",
-        thumbnail: "https://www.freetogame.com/g/1/thumbnail.jpg",
-        short_description: "A cooperative action RPG where players hunt massive creatures.",
-        genre: "MMORPG",
-        platform: "PC",
-        release_date: "2019-05-21",
-        game_url: "https://www.freetogame.com/open/dauntless"
-      },
-      {
-        id: 3,
-        title: "Fortnite",
-        thumbnail: "https://www.freetogame.com/g/57/thumbnail.jpg",
-        short_description: "A popular survival and battle royale game with building mechanics.",
-        genre: "Battle Royale",
-        platform: "PC",
-        release_date: "2017-07-21",
-        game_url: "https://www.freetogame.com/open/fortnite"
-      },
-      {
-        id: 4,
-        title: "Genshin Impact",
-        thumbnail: "https://www.freetogame.com/g/475/thumbnail.jpg",
-        short_description: "An open-world action RPG with exploration, quests, and character collecting.",
-        genre: "Action RPG",
-        platform: "PC",
-        release_date: "2020-09-28",
-        game_url: "https://www.freetogame.com/open/genshin-impact"
-      },
-      {
-        id: 5,
-        title: "League of Legends",
-        thumbnail: "https://www.freetogame.com/g/286/thumbnail.jpg",
-        short_description: "A competitive multiplayer online battle arena game with strategic team combat.",
-        genre: "MOBA",
-        platform: "PC",
-        release_date: "2009-10-27",
-        game_url: "https://www.freetogame.com/open/league-of-legends"
-      },
-      {
-        id: 6,
-        title: "Overwatch 2",
-        thumbnail: "https://www.freetogame.com/g/540/thumbnail.jpg",
-        short_description: "A team-based hero shooter focused on objectives and coordinated gameplay.",
-        genre: "Shooter",
-        platform: "PC",
-        release_date: "2022-10-04",
-        game_url: "https://www.freetogame.com/open/overwatch-2"
-      },
-      {
-        id: 7,
-        title: "Path of Exile",
-        thumbnail: "https://www.freetogame.com/g/400/thumbnail.jpg",
-        short_description: "A dark fantasy action RPG with deep character customization.",
-        genre: "Action RPG",
-        platform: "PC",
-        release_date: "2013-10-23",
-        game_url: "https://www.freetogame.com/open/path-of-exile"
-      },
-      {
-        id: 8,
-        title: "Rocket League",
-        thumbnail: "https://www.freetogame.com/g/474/thumbnail.jpg",
-        short_description: "A high-energy sports game where players use cars to play soccer.",
-        genre: "Sports",
-        platform: "PC",
-        release_date: "2020-09-23",
-        game_url: "https://www.freetogame.com/open/rocket-league"
-      }
+    var fallbackGames = [
+      { id:1, title:"Apex Legends",      thumbnail:"https://www.freetogame.com/g/23/thumbnail.jpg",  short_description:"A fast-paced battle royale game with team-based heroes.",               genre:"Shooter",      platform:"PC", release_date:"2019-02-04", game_url:"https://www.freetogame.com/open/apex-legends" },
+      { id:2, title:"Dauntless",         thumbnail:"https://www.freetogame.com/g/1/thumbnail.jpg",   short_description:"A cooperative action RPG where players hunt massive creatures.",        genre:"MMORPG",       platform:"PC", release_date:"2019-05-21", game_url:"https://www.freetogame.com/open/dauntless" },
+      { id:3, title:"Fortnite",          thumbnail:"https://www.freetogame.com/g/57/thumbnail.jpg",  short_description:"A popular survival and battle royale game with building mechanics.",    genre:"Battle Royale", platform:"PC", release_date:"2017-07-21", game_url:"https://www.freetogame.com/open/fortnite" },
+      { id:4, title:"Genshin Impact",    thumbnail:"https://www.freetogame.com/g/475/thumbnail.jpg", short_description:"An open-world action RPG with exploration and character collecting.",   genre:"Action RPG",   platform:"PC", release_date:"2020-09-28", game_url:"https://www.freetogame.com/open/genshin-impact" },
+      { id:5, title:"League of Legends", thumbnail:"https://www.freetogame.com/g/286/thumbnail.jpg", short_description:"A competitive MOBA game with strategic team combat.",                  genre:"MOBA",         platform:"PC", release_date:"2009-10-27", game_url:"https://www.freetogame.com/open/league-of-legends" },
+      { id:6, title:"Overwatch 2",       thumbnail:"https://www.freetogame.com/g/540/thumbnail.jpg", short_description:"A team-based hero shooter focused on objectives and coordination.",    genre:"Shooter",      platform:"PC", release_date:"2022-10-04", game_url:"https://www.freetogame.com/open/overwatch-2" },
+      { id:7, title:"Path of Exile",     thumbnail:"https://www.freetogame.com/g/400/thumbnail.jpg", short_description:"A dark fantasy action RPG with deep character customization.",        genre:"Action RPG",   platform:"PC", release_date:"2013-10-23", game_url:"https://www.freetogame.com/open/path-of-exile" },
+      { id:8, title:"Rocket League",     thumbnail:"https://www.freetogame.com/g/474/thumbnail.jpg", short_description:"A high-energy sports game where players use cars to play soccer.",   genre:"Sports",       platform:"PC", release_date:"2020-09-23", game_url:"https://www.freetogame.com/open/rocket-league" }
     ];
 
-    const gameGrid = document.getElementById("gameGrid");
-    const sortSelect = document.getElementById("sortSelect");
-    const statusMessage = document.getElementById("statusMessage");
-    const loadLiveButton = document.getElementById("loadLiveButton");
-
-    let games = [];
-    let nextId = localGames.length + 1;
+    var gameGrid      = document.getElementById("gameGrid");
+    var sortSelect    = document.getElementById("sortSelect");
+    var searchInput   = document.getElementById("searchInput");
+    var statusMessage = document.getElementById("statusMessage");
+    var games         = [];
+    var nextId        = fallbackGames.length + 1;
 
     function normalizeGame(game) {
       return {
-        id: game.id || nextId++,
-        title: game.title || "Untitled Game",
-        thumbnail: game.thumbnail || "",
+        id:                game.id                || nextId++,
+        title:             game.title             || "Untitled Game",
+        thumbnail:         game.thumbnail         || "",
         short_description: game.short_description || "No description available.",
-        genre: game.genre || "Unknown Genre",
-        platform: game.platform || "Unknown Platform",
-        release_date: game.release_date || "2000-01-01",
-        game_url: game.game_url || "#"
+        genre:             game.genre             || "Unknown Genre",
+        platform:          game.platform          || "Unknown Platform",
+        release_date:      game.release_date      || "2000-01-01",
+        game_url:          game.game_url          || "#"
       };
     }
 
-    function loadLocalGames() {
-      games = localGames.map(normalizeGame);
-      statusMessage.textContent = "Showing " + games.length + " local games. These work even when fetch or CORS blocks the API.";
-      sortAndRenderGames(sortSelect.value);
+    async function tryFetch(url) {
+      var response = await fetch(url);
+      if (!response.ok) throw new Error("Status " + response.status);
+      var data = await response.json();
+      if (!Array.isArray(data)) throw new Error("Response was not a game list.");
+      return data;
     }
 
-    async function loadLiveGames() {
-      loadLiveButton.disabled = true;
-      loadLiveButton.textContent = "Loading...";
-      statusMessage.textContent = "Trying to load live API games...";
+    async function fetchGames() {
+      statusMessage.textContent = "Loading games...";
 
       try {
-        const response = await fetch(API_URL);
-
-        if (!response.ok) {
-          throw new Error("API request failed with status " + response.status + ".");
-        }
-
-        const data = await response.json();
-
-        if (!Array.isArray(data)) {
-          throw new Error("The API did not return a valid game list.");
-        }
-
+        // Try proxy one first
+        var data = await tryFetch(PROXY_ONE);
         games = data.slice(0, 24).map(normalizeGame);
-        statusMessage.textContent = "Showing " + games.length + " live games from the API.";
-        sortAndRenderGames(sortSelect.value);
-      } catch (error) {
-        statusMessage.textContent = "The live API could not be loaded. Showing local games instead.";
-        loadLocalGames();
-      } finally {
-        loadLiveButton.disabled = false;
-        loadLiveButton.textContent = "Load Live API Games";
+        statusMessage.textContent = "Showing " + games.length + " live games from the FreeToGame API.";
+      } catch (errorOne) {
+        console.warn("Proxy 1 failed (" + errorOne.message + "), trying backup...");
+
+        try {
+          // Try proxy two as backup
+          var data = await tryFetch(PROXY_TWO);
+          games = data.slice(0, 24).map(normalizeGame);
+          statusMessage.textContent = "Showing " + games.length + " live games from the FreeToGame API.";
+        } catch (errorTwo) {
+          console.warn("Proxy 2 failed (" + errorTwo.message + "), using sample games.");
+          games = fallbackGames.map(normalizeGame);
+          statusMessage.textContent = "Showing " + games.length + " sample games (live API unavailable).";
+        }
       }
+
+      sortAndRender();
     }
 
     function createFallbackImage(title) {
-      const div = document.createElement("div");
+      var div = document.createElement("div");
       div.className = "game-image";
       div.setAttribute("role", "img");
       div.setAttribute("aria-label", title + " cover placeholder");
@@ -416,59 +319,57 @@
       gameGrid.innerHTML = "";
 
       gameList.forEach(function (game) {
-        const card = document.createElement("article");
+        var card = document.createElement("article");
         card.className = "game-card";
 
         if (game.thumbnail) {
-          const image = document.createElement("img");
-          image.src = game.thumbnail;
-          image.alt = game.title + " cover image";
-          image.width = 460;
-          image.height = 215;
+          var image     = document.createElement("img");
+          image.src     = game.thumbnail;
+          image.alt     = game.title + " cover image";
+          image.width   = 460;
+          image.height  = 215;
           image.loading = "lazy";
-          image.onerror = function () {
-            image.replaceWith(createFallbackImage(game.title));
-          };
+          image.onerror = function () { image.replaceWith(createFallbackImage(game.title)); };
           card.appendChild(image);
         } else {
           card.appendChild(createFallbackImage(game.title));
         }
 
-        const content = document.createElement("div");
-        content.className = "game-content";
+        var content             = document.createElement("div");
+        content.className       = "game-content";
 
-        const title = document.createElement("h2");
-        title.textContent = game.title;
+        var titleEl             = document.createElement("h2");
+        titleEl.textContent     = game.title;
 
-        const date = document.createElement("p");
-        date.className = "game-date";
-        date.textContent = "Released: " + formatDate(game.release_date);
+        var date                = document.createElement("p");
+        date.className          = "game-date";
+        date.textContent        = "Released: " + formatDate(game.release_date);
 
-        const description = document.createElement("p");
-        description.className = "game-description";
+        var description         = document.createElement("p");
+        description.className   = "game-description";
         description.textContent = game.short_description;
 
-        const meta = document.createElement("div");
-        meta.className = "game-meta";
+        var meta                = document.createElement("div");
+        meta.className          = "game-meta";
 
-        const genre = document.createElement("span");
-        genre.className = "pill";
-        genre.textContent = game.genre;
+        var genre               = document.createElement("span");
+        genre.className         = "pill";
+        genre.textContent       = game.genre;
 
-        const platform = document.createElement("span");
-        platform.className = "pill";
-        platform.textContent = game.platform;
+        var platform            = document.createElement("span");
+        platform.className      = "pill";
+        platform.textContent    = game.platform;
 
-        const link = document.createElement("a");
-        link.className = "game-link";
-        link.href = game.game_url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.textContent = "View Game";
+        var link                = document.createElement("a");
+        link.className          = "game-link";
+        link.href               = game.game_url;
+        link.target             = "_blank";
+        link.rel                = "noopener noreferrer";
+        link.textContent        = "View Game";
 
         meta.appendChild(genre);
         meta.appendChild(platform);
-        content.appendChild(title);
+        content.appendChild(titleEl);
         content.appendChild(date);
         content.appendChild(description);
         content.appendChild(meta);
@@ -478,70 +379,52 @@
       });
     }
 
-    function getSortedGames(gameList, sortType) {
-      const sorted = [...gameList];
-
-      if (sortType === "az") {
-        return sorted.sort(function (a, b) { return a.title.localeCompare(b.title); });
-      }
-      if (sortType === "za") {
-        return sorted.sort(function (a, b) { return b.title.localeCompare(a.title); });
-      }
-      if (sortType === "newest") {
-        return sorted.sort(function (a, b) { return new Date(b.release_date) - new Date(a.release_date); });
-      }
-      if (sortType === "oldest") {
-        return sorted.sort(function (a, b) { return new Date(a.release_date) - new Date(b.release_date); });
-      }
-
-      return sorted;
-    }
-
-    function sortAndRenderGames(sortType) {
-      renderGames(getSortedGames(games, sortType));
-    }
-
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-
-      if (Number.isNaN(date.getTime())) {
-        return "Unknown release date";
-      }
-
-      return date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
+    function getFilteredGames(gameList, keyword) {
+      if (!keyword) return gameList;
+      var term = keyword.toLowerCase();
+      return gameList.filter(function (game) {
+        return (
+          game.title.toLowerCase().includes(term) ||
+          game.genre.toLowerCase().includes(term) ||
+          game.platform.toLowerCase().includes(term) ||
+          game.short_description.toLowerCase().includes(term)
+        );
       });
     }
 
-    function runTests() {
-      const testGames = [
-        { title: "Beta",    release_date: "2020-01-01" },
-        { title: "Alpha",   release_date: "2022-01-01" },
-        { title: "Charlie", release_date: "2018-01-01" }
-      ];
-
-      function titles(list) {
-        return list.map(function (g) { return g.title; }).join(",");
-      }
-
-      console.assert(titles(getSortedGames(testGames, "az"))     === "Alpha,Beta,Charlie",   "Sort A-Z failed");
-      console.assert(titles(getSortedGames(testGames, "za"))     === "Charlie,Beta,Alpha",   "Sort Z-A failed");
-      console.assert(titles(getSortedGames(testGames, "newest")) === "Alpha,Beta,Charlie",   "Sort newest failed");
-      console.assert(titles(getSortedGames(testGames, "oldest")) === "Charlie,Beta,Alpha",   "Sort oldest failed");
-      console.assert(normalizeGame({}).title                     === "Untitled Game",        "Normalize title failed");
-      console.assert(formatDate("not-a-date")                    === "Unknown release date", "formatDate invalid failed");
+    function getSortedGames(gameList, sortType) {
+      var sorted = gameList.slice();
+      if (sortType === "az")     return sorted.sort(function (a, b) { return a.title.localeCompare(b.title); });
+      if (sortType === "za")     return sorted.sort(function (a, b) { return b.title.localeCompare(a.title); });
+      if (sortType === "newest") return sorted.sort(function (a, b) { return new Date(b.release_date) - new Date(a.release_date); });
+      if (sortType === "oldest") return sorted.sort(function (a, b) { return new Date(a.release_date) - new Date(b.release_date); });
+      return sorted;
     }
 
-    sortSelect.addEventListener("change", function (event) {
-      sortAndRenderGames(event.target.value);
-    });
+    function sortAndRender() {
+      var keyword  = searchInput.value.trim();
+      var sortType = sortSelect.value;
+      var filtered = getFilteredGames(games, keyword);
+      var sorted   = getSortedGames(filtered, sortType);
 
-    loadLiveButton.addEventListener("click", loadLiveGames);
+      if (sorted.length === 0 && keyword) {
+        gameGrid.innerHTML = "<p class=\"no-results\">No games found for \"" + keyword + "\". Try a different search.</p>";
+      } else {
+        renderGames(sorted);
+      }
+    }
 
-    loadLocalGames();
-    runTests();
+    function formatDate(dateString) {
+      var date = new Date(dateString);
+      if (isNaN(date.getTime())) return "Unknown release date";
+      return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    }
+
+    sortSelect.addEventListener("change", sortAndRender);
+    searchInput.addEventListener("input", sortAndRender);
+
+    fetchGames();
   </script>
+
 </body>
 </html>
